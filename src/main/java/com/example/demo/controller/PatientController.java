@@ -13,38 +13,39 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.example.demo.entity.Patient;
+import com.example.demo.model.Patient;
 import com.example.demo.service.PatientService;
 
 @RestController
-@RequestMapping("/patients")
 @CrossOrigin
+@RequestMapping("/patients")
 public class PatientController {
+
 	@Autowired
-	PatientService service;
-
+	private  PatientService service;
+	
+	@PostMapping
+	 public Patient add(@RequestBody Patient p) {
+	        return service.addPatient(p);
+	    }
+	
 	@GetMapping
-	public List<Patient> getAll(){
-		return service.getAllPatients();
-	}
-
+	public List<Patient> getAll() {
+        return service.getAllPatients();
+    }
+	
 	@GetMapping("/{id}")
 	public Patient get(@PathVariable Long id) {
-		return service.getPatient(id);
-	}
-
-	@PostMapping
-	public Patient add(@RequestBody Patient p) {
-		return service.addPatient(p);
-	}
-
+        return service.getPatient(id);
+    }
+	
 	@PutMapping("/{id}")
 	public Patient update(@PathVariable Long id, @RequestBody Patient p) {
-		return service.updatePatient(id, p);
-	}
-
+        return service.updatePatient(id, p);
+    }
+	
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable Long id) {
-		service.deletePatient(id);
-	}
+	public void deletePatient(@PathVariable Long id) {
+        service.deletePatient(id);
+    }
 }

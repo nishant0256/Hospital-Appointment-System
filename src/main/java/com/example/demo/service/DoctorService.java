@@ -5,39 +5,43 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.example.demo.entity.Doctor;
+import com.example.demo.model.Doctor;
 import com.example.demo.repository.DoctorRepository;
 
 @Service
 public class DoctorService {
+
 	@Autowired
-	DoctorRepository repo;
+	private DoctorRepository repo;
 	
-	public List<Doctor> getAllDoctors(){
-		return repo.findAll();		
+	 public List<Doctor> getAllDoctors() {
+	        return repo.findAll();
 	}
-	
-	public Doctor getDoctor(Long id) {
-		return repo.findById(id).orElse(null);
-	}
-	
-	public Doctor addDoctor(Doctor d) {
-		return repo.save(d);
-	}
-	
-	public Doctor updateDoctor(Long id, Doctor d) {
-		Doctor existing = repo.findById(id).orElse(null);
-		if(existing != null) {
-			existing.setName(d.getName());
-			existing.setId(d.getId());
-			existing.setSpecialization(d.getSpecialization());
-			existing.setPhone(d.getPhone());
-			return repo.save(existing);
+	 
+		public Doctor getDoctor(Long id) {
+			return repo.findById(id).orElse(null);
 		}
-		return null;
-	}
+		
+		 public Doctor addDoctor(Doctor d) {
+				// TODO Auto-generated method stub
+				return repo.save(d);
+			 }
 	
-	public void deleteDoctor(Long id) {
-		repo.deleteById(id);
-	}
+
+	
+	 
+	 public void deleteDoctor(Long id) {
+	        repo.deleteById(id);
+	    }
+	 public Doctor updateDoctor(Long id, Doctor d) {
+		 Doctor doctor = repo.findById(id).orElse(null);
+	        if (doctor != null) {
+	            doctor.setName(d.getName());
+	            doctor.setId(d.getId());
+	            doctor.setSpecilization(d.getSpecilization());
+	            doctor.setPhone(d.getPhone());
+	        }
+	        return null;
+	 }
+	
 }
